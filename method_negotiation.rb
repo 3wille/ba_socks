@@ -1,11 +1,14 @@
+require_relative "version_checkable"
+
 class MethodNegotiation
+  include VersionCheckable
+
   attr_reader :message, :socket
 
   def initialize(socket)
     @socket = socket
     @message = socket.read(2).bytes
     ensure_socks5
-    puts message[1]
     message << socket.read(message[1]).bytes
     puts "finished reading methods"
   end
@@ -32,12 +35,5 @@ class MethodNegotiation
     end
   end
 
-  def ensure_socks5
-    unless message[0] == 5
-      raise ProtocolVersionError
-    end
-  end
-
   class ProtocolVersionError < StandardError; end
-  class AuthMethodError < StandardError; end
 end
