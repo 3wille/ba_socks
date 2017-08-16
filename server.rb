@@ -12,12 +12,13 @@ class SocksServer
     loop do
       puts "Waiting for connection"
       # Thread.start(server.accept) do |client|
-      client = server.accept
-      MethodNegotiation.new(client).run
+      socket = server.accept
+      MethodNegotiation.new(socket).run
 
+      Request.new(socket).run
 
       puts "Connection closing"
-      client.close
+      socket.close
       # end
     end
   end
