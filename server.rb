@@ -1,9 +1,10 @@
 #!/usr/bin/env ruby
 
-require 'socket'
-require 'byebug'
-require 'active_support/all'
-require_relative 'method_negotiation'
+require "socket"
+require "byebug"
+require "active_support/all"
+require_relative "method_negotiation"
+require_relative "request"
 
 class SocksServer
   def main
